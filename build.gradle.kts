@@ -31,6 +31,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-jetty")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("com.github.derjust:spring-data-dynamodb:5.1.0")
 
   // Libraries
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")

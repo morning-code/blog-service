@@ -8,3 +8,9 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+amazon:
+  dynamodb:
+    endpoint: http://localhost:8000
+  credential:
+    profile: default
