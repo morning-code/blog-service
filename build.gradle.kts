@@ -38,6 +38,7 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3")
 
   // Swagger
+  implementation("org.springdoc:springdoc-openapi-kotlin:1.2.32")
   implementation("org.springdoc:springdoc-openapi-webflux-ui:1.2.32")
 
   // Align versions of all Kotlin components
