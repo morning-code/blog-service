@@ -15,8 +15,7 @@ import reactor.core.publisher.Mono
 @RestController
 @RequestMapping("/v1/blog")
 class BlogController(
-    private val blogUsecase: BlogUsecase,
-    private val blogResonseBuilder: BlogResonseBuilder
+    private val blogUsecase: BlogUsecase
 ) {
 
   @Operation(summary = "get blog list")
