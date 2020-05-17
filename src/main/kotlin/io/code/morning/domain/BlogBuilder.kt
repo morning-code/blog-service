@@ -16,14 +16,22 @@ import org.springframework.stereotype.Component
 @Component
 class BlogBuilder {
 
-  fun build(entity: BlogEntity?): BlogDto {
-    return entity.let {
-      BlogDto(
-          id = it?.id.toString(),
-          category = it?.category.orEmpty(),
-          title = it?.title.orEmpty(),
-          detail = buildHtmlFromMarkDown(it?.detail)
-      )
+  fun build(entity: BlogEntity): BlogDto {
+    entity.let {
+      return if (it.id != null) {
+        BlogDto(
+            id = it.id?.id,
+            category = it.category,
+            title = it.title,
+            detail = buildHtmlFromMarkDown(it.detail)
+        )
+      } else {
+        BlogDto(
+            category = it.category,
+            title = it.title,
+            detail = buildHtmlFromMarkDown(it.detail)
+        )
+      }
     }
   }
 

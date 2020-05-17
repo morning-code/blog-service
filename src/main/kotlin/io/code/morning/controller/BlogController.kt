@@ -15,7 +15,8 @@ import reactor.core.publisher.Mono
 @RestController
 @RequestMapping("/v1/blog")
 class BlogController(
-    private val blogUsecase: BlogUsecase
+    private val blogUsecase: BlogUsecase,
+    private val blogResonseBuilder: BlogResonseBuilder
 ) {
 
   @Operation(summary = "get blog list")
@@ -40,7 +41,8 @@ class BlogController(
   @ResponseStatus(HttpStatus.OK)
   @GetMapping("/{id}")
   suspend fun find(@PathVariable("id") id: String): BlogResponse =
-      blogUsecase.findById(BlogId(id)).awaitSingle()
+      blogUsecase.findById(BlogId(id))
+          .awaitSingle()
 
   @Operation(summary = "create a blog")
   @ApiResponses(value = [
