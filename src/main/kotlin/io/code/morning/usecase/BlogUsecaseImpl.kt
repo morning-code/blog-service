@@ -4,24 +4,36 @@ import io.code.morning.domain.BlogBuilder
 import io.code.morning.exceptions.BlogNotFoundException
 import io.code.morning.domain.BlogEntity
 import io.code.morning.infrastructure.BlogId
-import io.code.morning.infrastructure.dynamodb.BlogRepository
+import io.code.morning.infrastructure.dynamodb.BlogCrudRepository
+import io.code.morning.infrastructure.dynamodb.BlogPageRepository
 import org.springframework.stereotype.Service
+import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Mono
+
 
 @Service
 class BlogUsecaseImpl(
     private val blogBuilder: BlogBuilder,
-    private val blogRepository: BlogRepository
+    private val blogCrudRepository: BlogCrudRepository,
+    private val blogPageRepository: BlogPageRepository
 ) : BlogUsecase {
 
-  override fun findList(): Mono<List<BlogEntity>> {
-    TODO("Not yet implemented")
-  }
+  override fun findList(pageable: Pageable): Mono<List<BlogEntity>> =
+      Mono.just(blogPageRepository.findAll(pageable)
+          .map {
+            BlogEntity(
+                id = BlogId(it.id!!),
+                category = it.category,
+                title = it.title,
+                detail = it.detail
+            )
+          }
+          .toList())
 
   override fun findById(blogId: BlogId): Mono<BlogEntity> =
       blogId
           .let {
-            blogRepository.findById(it.id)
+            blogCrudRepository.findById(it.id)
                 .orElseThrow { BlogNotFoundException("blog not found. id: $it") }
           }
           .let {
@@ -35,7 +47,7 @@ class BlogUsecaseImpl(
 
   override fun create(blog: BlogEntity): Mono<BlogEntity> =
       blog.let {
-        blogRepository.save(blogBuilder.build(it))
+        blogCrudRepository.save(blogBuilder.build(it))
       }.let {
         Mono.just(BlogEntity(
             id = BlogId(it.id!!),
@@ -47,7 +59,7 @@ class BlogUsecaseImpl(
 
   override fun update(blogId: BlogId, blog: BlogEntity): Mono<BlogEntity> =
       blog.let {
-        blogRepository.save(blogBuilder.build(it))
+        blogCrudRepository.save(blogBuilder.build(it))
       }.let {
         Mono.just(BlogEntity(
             id = BlogId(it.id!!),
@@ -58,5 +70,5 @@ class BlogUsecaseImpl(
       }
 
 
-  override fun delete(blogId: BlogId) = blogRepository.deleteById(blogId.id)
+  override fun delete(blogId: BlogId) = blogCrudRepository.deleteById(blogId.id)
 }

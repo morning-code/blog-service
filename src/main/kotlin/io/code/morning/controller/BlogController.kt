@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import kotlinx.coroutines.reactive.awaitSingle
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -27,8 +29,11 @@ class BlogController(
   ])
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(value = ["list"])
-  suspend fun list(): List<BlogResponse> =
-      blogUsecase.findList().awaitSingle()
+  suspend fun list(
+      @RequestParam("page") page: Int,
+      @RequestParam("size") size: Int
+  ): List<BlogResponse> =
+      blogUsecase.findList(PageRequest.of(page, size)).awaitSingle()
 
   @Operation(summary = "get a blog specified by id")
   @ApiResponses(value = [
