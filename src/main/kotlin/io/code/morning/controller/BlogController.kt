@@ -40,7 +40,7 @@ class BlogController(
   @ResponseStatus(HttpStatus.OK)
   @GetMapping("/{id}")
   suspend fun find(@PathVariable("id") id: String): BlogResponse =
-      blogUsecase.findById(id).awaitSingle()
+      blogUsecase.findById(BlogId(id)).awaitSingle()
 
   @Operation(summary = "create a blog")
   @ApiResponses(value = [
@@ -71,7 +71,7 @@ class BlogController(
   @PutMapping(value = ["/{id}"])
   suspend fun update(@PathVariable("id") id: String, @RequestBody requestBody: BlogUpdateRequest) =
       requestBody.let {
-        blogUsecase.update(id = id,
+        blogUsecase.update(blogId = BlogId(id),
             blog = BlogEntity(
             category = it.category,
             title = it.title,
@@ -89,7 +89,7 @@ class BlogController(
   @ResponseStatus(HttpStatus.OK)
   @DeleteMapping(value = ["/{id}"])
   suspend fun delete(@PathVariable("id") id: String): ResponseEntity<Unit> =
-      blogUsecase.delete(id).let { ResponseEntity.ok().build() }
+      blogUsecase.delete(BlogId(id)).let { ResponseEntity.ok().build() }
 
 
   @Operation(summary = "ping")

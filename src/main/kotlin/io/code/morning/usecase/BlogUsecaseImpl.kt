@@ -20,11 +20,11 @@ class BlogUsecaseImpl(
     TODO("Not yet implemented")
   }
 
-  override fun findById(id: String): Mono<Blog> =
-      id
+  override fun findById(blogId: BlogId): Mono<Blog> =
+      blogId
           .let {
-            blogRepository.findById(it)
-                .orElseThrow { BlogNotFoundException("blog not found. id: $id") }
+            blogRepository.findById(it.id)
+                .orElseThrow { BlogNotFoundException("blog not found. id: $it") }
           }
           .let { blogBuilder.build(it) }
 
@@ -37,15 +37,15 @@ class BlogUsecaseImpl(
         ))
       }.let { blogBuilder.build(it) }
 
-  override fun update(id: String, blog: BlogEntity): Mono<Blog> =
+  override fun update(blogId: BlogId, blog: BlogEntity): Mono<Blog> =
       blog.let {
         blogRepository.save(BlogEntity(
-            id = id,
+            id = blogId.id,
             category = it.category,
             title = it.title,
             detail = it.detail
         ))
       }.let { blogBuilder.build(it) }
 
-  override fun delete(id: String) = blogRepository.deleteById(id)
+  override fun delete(blogId: BlogId) = blogRepository.deleteById(blogId.id)
 }

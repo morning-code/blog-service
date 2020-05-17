@@ -36,6 +36,7 @@ dependencies {
   // Libraries
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3")
+  implementation("com.vladsch.flexmark:flexmark-all:0.61.4")
 
   // Swagger
   implementation("org.springdoc:springdoc-openapi-kotlin:1.2.32")
@@ -53,6 +54,7 @@ dependencies {
   implementation("com.amazonaws:aws-xray-recorder-sdk-core")
   implementation("com.amazonaws:aws-xray-recorder-sdk-aws-sdk")
   implementation("com.amazonaws:aws-xray-recorder-sdk-aws-sdk-instrumentor")
+
    */
   // Testing
   testImplementation("org.springframework.boot:spring-boot-starter-test") {

@@ -9,11 +9,11 @@ interface BlogUsecase {
 
   fun findList(): Mono<List<Blog>>
 
-  fun findById(id: String): Mono<Blog>
+  fun findById(blogId: BlogId): Mono<Blog>
 
   fun create(blog: BlogEntity): Mono<Blog>
 
-  fun update(id: String, blog: BlogEntity): Mono<Blog>
+  fun update(blogId: BlogId, blog: BlogEntity): Mono<Blog>
 
-  fun delete(id: String)
+  fun delete(blogId: BlogId)
 }
