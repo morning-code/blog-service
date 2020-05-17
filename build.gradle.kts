@@ -49,9 +49,11 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3")
 
   // AWS X-Ray
+  /*
   implementation("com.amazonaws:aws-xray-recorder-sdk-core")
   implementation("com.amazonaws:aws-xray-recorder-sdk-aws-sdk")
   implementation("com.amazonaws:aws-xray-recorder-sdk-aws-sdk-instrumentor")
+   */
   // Testing
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

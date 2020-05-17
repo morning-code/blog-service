@@ -11,6 +11,6 @@ springdoc:
 
 amazon:
   dynamodb:
-    endpoint: http://localhost:8000
+    endpoint:
   credential:
     profile: default

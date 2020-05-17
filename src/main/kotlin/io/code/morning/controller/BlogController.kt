@@ -51,7 +51,7 @@ class BlogController(
   ])
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(value = [""])
-  suspend fun create(@RequestBody requestBody: BlogAddRequest): BlogId =
+  suspend fun create(@RequestBody requestBody: BlogAddRequest): String =
       requestBody.let {
         blogUsecase.create(BlogEntity(
             category = it.category,
@@ -72,7 +72,7 @@ class BlogController(
   suspend fun update(@PathVariable("id") id: String, @RequestBody requestBody: BlogUpdateRequest) =
       requestBody.let {
         blogUsecase.update(BlogEntity(
-            id = BlogId(id),
+            id = id,
             category = it.category,
             title = it.title,
             detail = it.detail

@@ -4,10 +4,9 @@ import io.code.morning.domain.Blog
 import io.code.morning.domain.BlogBuilder
 import io.code.morning.infrastructure.BlogEntity
 import io.code.morning.infrastructure.BlogId
-import io.code.morning.infrastructure.BlogRepository
+import io.code.morning.infrastructure.dynamodb.BlogRepository
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
-import reactor.core.publisher.toMono
 
 @Service
 class BlogUsecaseImpl(
@@ -24,10 +23,9 @@ class BlogUsecaseImpl(
           .let { blogRepository.findById(it).orElse(null) }
           .let { blogBuilder.build(it) }
 
-  override fun create(blog: BlogEntity): Mono<BlogId> =
+  override fun create(blog: BlogEntity): Mono<String> =
       blog.let {
         blogRepository.save(BlogEntity(
-            id = BlogId("1"),
             category = it.category,
             title = it.title,
             detail = it.detail
