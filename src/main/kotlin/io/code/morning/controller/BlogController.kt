@@ -51,7 +51,7 @@ class BlogController(
   ])
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(value = [""])
-  suspend fun create(@RequestBody requestBody: BlogAddRequest): String =
+  suspend fun create(@RequestBody requestBody: BlogAddRequest): BlogResponse =
       requestBody.let {
         blogUsecase.create(BlogEntity(
             category = it.category,
@@ -71,13 +71,13 @@ class BlogController(
   @PutMapping(value = ["/{id}"])
   suspend fun update(@PathVariable("id") id: String, @RequestBody requestBody: BlogUpdateRequest) =
       requestBody.let {
-        blogUsecase.update(BlogEntity(
-            id = id,
+        blogUsecase.update(id = id,
+            blog = BlogEntity(
             category = it.category,
             title = it.title,
             detail = it.detail
-        )).awaitSingle()
-      }
+        ))
+      }.awaitSingle()
 
   @Operation(summary = "delete a blog")
   @ApiResponses(value = [

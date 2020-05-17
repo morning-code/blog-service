@@ -21,9 +21,6 @@ class DynamoDbConfig {
   @Value("\${amazon.dynamodb.endpoint}")
   private val endPoint: String? = null
 
-  @Value("\${amazon.dynamodb.region}")
-  private val region: String? = null
-
   @Value("\${amazon.credential.profile}")
   private val profile: String? = null
 
