@@ -1,19 +1,18 @@
 package io.code.morning.usecase
 
-import io.code.morning.domain.Blog
-import io.code.morning.infrastructure.BlogEntity
+import io.code.morning.domain.BlogEntity
 import io.code.morning.infrastructure.BlogId
 import reactor.core.publisher.Mono
 
 interface BlogUsecase {
 
-  fun findList(): Mono<List<Blog>>
+  fun findList(): Mono<List<BlogEntity>>
 
-  fun findById(blogId: BlogId): Mono<Blog>
+  fun findById(blogId: BlogId): Mono<BlogEntity>
 
-  fun create(blog: BlogEntity): Mono<Blog>
+  fun create(blog: BlogEntity): Mono<BlogEntity>
 
-  fun update(blogId: BlogId, blog: BlogEntity): Mono<Blog>
+  fun update(blogId: BlogId, blog: BlogEntity): Mono<BlogEntity>
 
   fun delete(blogId: BlogId)
 }

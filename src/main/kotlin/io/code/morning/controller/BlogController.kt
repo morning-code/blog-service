@@ -1,6 +1,6 @@
 package io.code.morning.controller
 
-import io.code.morning.infrastructure.BlogEntity
+import io.code.morning.domain.BlogEntity
 import io.code.morning.infrastructure.BlogId
 import io.code.morning.usecase.BlogUsecase
 import io.swagger.v3.oas.annotations.Operation
@@ -73,10 +73,10 @@ class BlogController(
       requestBody.let {
         blogUsecase.update(blogId = BlogId(id),
             blog = BlogEntity(
-            category = it.category,
-            title = it.title,
-            detail = it.detail
-        ))
+                category = it.category,
+                title = it.title,
+                detail = it.detail
+            ))
       }.awaitSingle()
 
   @Operation(summary = "delete a blog")
