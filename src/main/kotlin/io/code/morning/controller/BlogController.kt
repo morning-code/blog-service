@@ -56,10 +56,11 @@ class BlogController(
     ApiResponse(responseCode = "500", description = "Internal server error")
   ])
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping(value = [""])
-  suspend fun create(@RequestBody requestBody: BlogAddRequest): BlogResponse =
+  @PostMapping(value = ["/{id}"])
+  suspend fun create(@PathVariable("id") id: String, @RequestBody requestBody: BlogAddRequest): BlogResponse =
       requestBody.let {
         blogUsecase.create(BlogEntity(
+            id = BlogId(id),
             category = it.category,
             title = it.title,
             detail = it.detail
@@ -77,8 +78,9 @@ class BlogController(
   @PutMapping(value = ["/{id}"])
   suspend fun update(@PathVariable("id") id: String, @RequestBody requestBody: BlogUpdateRequest) =
       requestBody.let {
-        blogUsecase.update(blogId = BlogId(id),
-            blog = BlogEntity(
+        blogUsecase.update(
+            BlogEntity(
+                id = BlogId(id),
                 category = it.category,
                 title = it.title,
                 detail = it.detail

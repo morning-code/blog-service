@@ -18,21 +18,30 @@ class BlogBuilder {
 
   fun build(entity: BlogEntity): BlogDto {
     entity.let {
-      return if (it.id != null) {
-        BlogDto(
-            id = it.id?.id,
-            category = it.category,
-            title = it.title,
-            detail = buildHtmlFromMarkDown(it.detail)
-        )
-      } else {
-        BlogDto(
-            category = it.category,
-            title = it.title,
-            detail = buildHtmlFromMarkDown(it.detail)
-        )
+      return BlogDto(
+          id = it.id?.id,
+          category = it.category,
+          title = it.title,
+          summary = buildSummary(it.detail),
+          detail = buildHtmlFromMarkDown(it.detail)
+      )
+    }
+  }
+
+  fun buildSummary(markDown: String?): String? {
+    var strLength: Int = 0
+    val builtSummaryList = mutableListOf<String>()
+    markDown?.split("\n")?.map {
+      if (strLength < 100 && !it.isBlank()) {
+        if (it.contains('#')) {
+          builtSummaryList.add("[" + it.replace("#", "").trim() + "]")
+        } else {
+          builtSummaryList.add(it)
+        }
+        strLength += it.length
       }
     }
+    return builtSummaryList.joinToString(" ")
   }
 
   fun buildHtmlFromMarkDown(markDown: String?): String? {

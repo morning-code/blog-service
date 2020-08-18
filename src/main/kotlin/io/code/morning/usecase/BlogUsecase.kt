@@ -13,7 +13,7 @@ interface BlogUsecase {
 
   fun create(blog: BlogEntity): Mono<BlogEntity>
 
-  fun update(blogId: BlogId, blog: BlogEntity): Mono<BlogEntity>
+  fun update(blog: BlogEntity): Mono<BlogEntity>
 
   fun delete(blogId: BlogId)
 }

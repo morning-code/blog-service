@@ -25,6 +25,7 @@ class BlogUsecaseImpl(
                 id = BlogId(it.id!!),
                 category = it.category,
                 title = it.title,
+                summary = it.summary,
                 detail = it.detail
             )
           }
@@ -41,6 +42,7 @@ class BlogUsecaseImpl(
                 id = BlogId(it.id!!),
                 category = it.category,
                 title = it.title,
+                summary = it.summary,
                 detail = it.detail
             ))
           }
@@ -53,11 +55,12 @@ class BlogUsecaseImpl(
             id = BlogId(it.id!!),
             category = it.category,
             title = it.title,
+            summary = it.summary,
             detail = it.detail
         ))
       }
 
-  override fun update(blogId: BlogId, blog: BlogEntity): Mono<BlogEntity> =
+  override fun update(blog: BlogEntity): Mono<BlogEntity> =
       blog.let {
         blogCrudRepository.save(blogBuilder.build(it))
       }.let {
@@ -65,6 +68,7 @@ class BlogUsecaseImpl(
             id = BlogId(it.id!!),
             category = it.category,
             title = it.title,
+            summary = it.summary,
             detail = it.detail
         ))
       }
