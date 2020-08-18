@@ -8,5 +8,7 @@ data class BlogEntity(
     var category: String? = null,
     var title: String? = null,
     var summary: String? = null,
-    var detail: String? = null
+    var detail: String? = null,
+    var createdDate: String? = null,
+    var updatedDate: String? = null
 )

@@ -19,11 +19,13 @@ class BlogBuilder {
   fun build(entity: BlogEntity): BlogDto {
     entity.let {
       return BlogDto(
-          id = it.id?.id,
+          id = it.id.id,
           category = it.category,
           title = it.title,
           summary = buildSummary(it.detail),
-          detail = buildHtmlFromMarkDown(it.detail)
+          detail = buildHtmlFromMarkDown(it.detail),
+          createdDate = it.createdDate,
+          updatedDate = it.updatedDate
       )
     }
   }

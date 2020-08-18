@@ -26,7 +26,9 @@ class BlogUsecaseImpl(
                 category = it.category,
                 title = it.title,
                 summary = it.summary,
-                detail = it.detail
+                detail = it.detail,
+                createdDate = it.createdDate,
+                updatedDate = it.updatedDate
             )
           }
           .toList())
@@ -43,7 +45,9 @@ class BlogUsecaseImpl(
                 category = it.category,
                 title = it.title,
                 summary = it.summary,
-                detail = it.detail
+                detail = it.detail,
+                createdDate = it.createdDate,
+                updatedDate = it.updatedDate
             ))
           }
 
@@ -56,7 +60,9 @@ class BlogUsecaseImpl(
             category = it.category,
             title = it.title,
             summary = it.summary,
-            detail = it.detail
+            detail = it.detail,
+            createdDate = it.createdDate,
+            updatedDate = it.updatedDate
         ))
       }
 
@@ -69,7 +75,9 @@ class BlogUsecaseImpl(
             category = it.category,
             title = it.title,
             summary = it.summary,
-            detail = it.detail
+            detail = it.detail,
+            createdDate = it.createdDate,
+            updatedDate = it.updatedDate
         ))
       }
 

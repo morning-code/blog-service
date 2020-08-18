@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 @RestController
 @RequestMapping("/v1/blog")
@@ -63,7 +66,9 @@ class BlogController(
             id = BlogId(id),
             category = it.category,
             title = it.title,
-            detail = it.detail
+            detail = it.detail,
+            createdDate = getToday(),
+            updatedDate = getToday()
         ))
       }.awaitSingle()
 
@@ -83,7 +88,8 @@ class BlogController(
                 id = BlogId(id),
                 category = it.category,
                 title = it.title,
-                detail = it.detail
+                detail = it.detail,
+                updatedDate = getToday()
             ))
       }.awaitSingle()
 
@@ -110,4 +116,9 @@ class BlogController(
   @ResponseStatus(HttpStatus.CREATED)
   @GetMapping(value = ["/ping"])
   suspend fun ping(): String = Mono.just("pong").awaitSingle()
+
+  private fun getToday(): String = DateTimeFormatter
+      .ofPattern("yyyy-MM-dd")
+      .withZone(ZoneOffset.UTC)
+      .format(Instant.now())
 }
